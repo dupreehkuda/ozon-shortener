@@ -31,13 +31,6 @@ func NewByConfig(handlers i.Handlers, logger *zap.Logger, config *config.Config)
 	}
 }
 
-func NewTestConfig(handlers i.Handlers, logger *zap.Logger) *server {
-	return &server{
-		handlers: handlers,
-		logger:   logger,
-	}
-}
-
 // Run runs the service and provides graceful shutdown
 func (s server) Run() {
 	serv := &http.Server{Addr: s.config.Address, Handler: s.Router()}

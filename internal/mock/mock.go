@@ -137,3 +137,32 @@ func NewMockStorage(ctrl *gomock.Controller) *MockStorage {
 func (m *MockStorage) EXPECT() *MockStorageMockRecorder {
 	return m.recorder
 }
+
+// AddNewLink mocks base method.
+func (m *MockStorage) AddNewLink(id, link string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddNewLink", id, link)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AddNewLink indicates an expected call of AddNewLink.
+func (mr *MockStorageMockRecorder) AddNewLink(id, link interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddNewLink", reflect.TypeOf((*MockStorage)(nil).AddNewLink), id, link)
+}
+
+// GetFullLink mocks base method.
+func (m *MockStorage) GetFullLink(id string) (string, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetFullLink", id)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetFullLink indicates an expected call of GetFullLink.
+func (mr *MockStorageMockRecorder) GetFullLink(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFullLink", reflect.TypeOf((*MockStorage)(nil).GetFullLink), id)
+}

@@ -12,16 +12,6 @@ type service struct {
 	logger  *zap.Logger
 }
 
-func (s service) GetFullLink(id string) (string, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s service) ShortenLink(link string) (string, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
 // New creates new instance of actions
 func New(storage i.Storage, logger *zap.Logger) *service {
 	return &service{

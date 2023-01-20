@@ -15,4 +15,6 @@ type Service interface {
 }
 
 type Storage interface {
+	AddNewLink(id, link string) error
+	GetFullLink(id string) (string, error)
 }

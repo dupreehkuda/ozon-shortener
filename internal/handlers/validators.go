@@ -6,6 +6,7 @@ import (
 	er "github.com/dupreehkuda/ozon-shortener/internal/customErrors"
 )
 
+// ValidateURL validates the URL
 func ValidateURL(url string) error {
 	if url == "" {
 		return er.ErrEmptyRequest
@@ -25,6 +26,7 @@ func ValidateURL(url string) error {
 	return nil
 }
 
+// ValidateToken validates the token
 func ValidateToken(token string) error {
 	if token == "" {
 		return er.ErrEmptyRequest

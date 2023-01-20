@@ -15,6 +15,7 @@ import (
 	"github.com/dupreehkuda/ozon-shortener/internal/server"
 )
 
+// TestHandlers_GetFullLink tests GetFullLink handler
 func TestHandlers_GetFullLink(t *testing.T) {
 	tests := map[string]struct {
 		input        string
@@ -58,10 +59,10 @@ func TestHandlers_GetFullLink(t *testing.T) {
 	defer ctrl.Finish()
 
 	service := mock.NewMockService(ctrl)
-	logger := zap.NewNop()
+	logger, _ := zap.NewDevelopment()
 	handle := New(service, logger)
 
-	srv := server.NewTestConfig(handle, logger)
+	srv := server.NewByConfig(handle, logger, nil)
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {

@@ -7,10 +7,12 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
+	er "github.com/dupreehkuda/ozon-shortener/internal/customErrors"
 	validators "github.com/dupreehkuda/ozon-shortener/internal/handlers"
 	"github.com/dupreehkuda/ozon-shortener/internal/models"
 )
 
+// ShortenLink handles the operation of shortening new link
 func (h handlers) ShortenLink(c echo.Context) error {
 	req := &models.ShortenRequest{}
 
@@ -26,6 +28,11 @@ func (h handlers) ShortenLink(c echo.Context) error {
 
 	token, err := h.service.ShortenLink(req.URL)
 	if err != nil {
+		if err == er.ErrExistingToken {
+			h.logger.Error("Collision alert!", zap.Error(err))
+			return c.JSON(http.StatusConflict, nil)
+		}
+
 		h.logger.Error("Error occurred in service call", zap.Error(err))
 		return c.JSON(http.StatusInternalServerError, nil)
 	}

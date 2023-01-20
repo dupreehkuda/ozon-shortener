@@ -6,6 +6,7 @@ import (
 	i "github.com/dupreehkuda/ozon-shortener/internal/interfaces"
 )
 
+// handlers provides http-handlers for service
 type handlers struct {
 	service i.Service
 	logger  *zap.Logger

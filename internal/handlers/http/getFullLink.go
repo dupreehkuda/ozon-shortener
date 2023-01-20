@@ -10,6 +10,7 @@ import (
 	validators "github.com/dupreehkuda/ozon-shortener/internal/handlers"
 )
 
+// GetFullLink handles the operation of redirect on shortened
 func (h handlers) GetFullLink(c echo.Context) error {
 	token := c.Param("id")
 
