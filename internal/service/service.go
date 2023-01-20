@@ -12,7 +12,7 @@ type service struct {
 	logger  *zap.Logger
 }
 
-func (s service) GetShortenedLink(id string) (string, error) {
+func (s service) GetFullLink(id string) (string, error) {
 	//TODO implement me
 	panic("implement me")
 }

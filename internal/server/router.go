@@ -10,7 +10,7 @@ func (s server) Router() *echo.Echo {
 
 	e.Use(middleware.Recover())
 
-	e.GET("/:id", s.handlers.GetShortenedLink)
+	e.GET("/:id", s.handlers.GetFullLink)
 	e.POST("/", s.handlers.ShortenLink)
 
 	return e

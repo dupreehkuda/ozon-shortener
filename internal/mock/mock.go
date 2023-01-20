@@ -8,7 +8,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	v4 "github.com/labstack/echo/v4"
+	echo "github.com/labstack/echo/v4"
 )
 
 // MockHandlers is a mock of Handlers interface.
@@ -34,22 +34,22 @@ func (m *MockHandlers) EXPECT() *MockHandlersMockRecorder {
 	return m.recorder
 }
 
-// GetShortenedLink mocks base method.
-func (m *MockHandlers) GetShortenedLink(c v4.Context) error {
+// GetFullLink mocks base method.
+func (m *MockHandlers) GetFullLink(c echo.Context) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetShortenedLink", c)
+	ret := m.ctrl.Call(m, "GetFullLink", c)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// GetShortenedLink indicates an expected call of GetShortenedLink.
-func (mr *MockHandlersMockRecorder) GetShortenedLink(c interface{}) *gomock.Call {
+// GetFullLink indicates an expected call of GetFullLink.
+func (mr *MockHandlersMockRecorder) GetFullLink(c interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetShortenedLink", reflect.TypeOf((*MockHandlers)(nil).GetShortenedLink), c)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFullLink", reflect.TypeOf((*MockHandlers)(nil).GetFullLink), c)
 }
 
 // ShortenLink mocks base method.
-func (m *MockHandlers) ShortenLink(c v4.Context) error {
+func (m *MockHandlers) ShortenLink(c echo.Context) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ShortenLink", c)
 	ret0, _ := ret[0].(error)
@@ -85,19 +85,19 @@ func (m *MockService) EXPECT() *MockServiceMockRecorder {
 	return m.recorder
 }
 
-// GetShortenedLink mocks base method.
-func (m *MockService) GetShortenedLink(id string) (string, error) {
+// GetFullLink mocks base method.
+func (m *MockService) GetFullLink(id string) (string, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetShortenedLink", id)
+	ret := m.ctrl.Call(m, "GetFullLink", id)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetShortenedLink indicates an expected call of GetShortenedLink.
-func (mr *MockServiceMockRecorder) GetShortenedLink(id interface{}) *gomock.Call {
+// GetFullLink indicates an expected call of GetFullLink.
+func (mr *MockServiceMockRecorder) GetFullLink(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetShortenedLink", reflect.TypeOf((*MockService)(nil).GetShortenedLink), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFullLink", reflect.TypeOf((*MockService)(nil).GetFullLink), id)
 }
 
 // ShortenLink mocks base method.
