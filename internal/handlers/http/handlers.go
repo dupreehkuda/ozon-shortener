@@ -7,14 +7,14 @@ import (
 )
 
 type handlers struct {
-	actions i.Service
+	service i.Service
 	logger  *zap.Logger
 }
 
 // New creates new instance of handlers
-func New(processor i.Service, logger *zap.Logger) *handlers {
+func New(service i.Service, logger *zap.Logger) *handlers {
 	return &handlers{
-		actions: processor,
+		service: service,
 		logger:  logger,
 	}
 }

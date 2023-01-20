@@ -5,13 +5,13 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func (s server) router() *echo.Echo {
+func (s server) Router() *echo.Echo {
 	e := echo.New()
 
 	e.Use(middleware.Recover())
 
-	e.GET("/:id", nil)
-	e.POST("/", nil)
+	e.GET("/:id", s.handlers.GetShortenedLink)
+	e.POST("/", s.handlers.ShortenLink)
 
 	return e
 }

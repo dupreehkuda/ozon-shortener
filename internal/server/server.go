@@ -13,7 +13,6 @@ import (
 
 	"github.com/dupreehkuda/ozon-shortener/internal/config"
 	i "github.com/dupreehkuda/ozon-shortener/internal/interfaces"
-	"github.com/dupreehkuda/ozon-shortener/internal/logger"
 )
 
 // server provides single configuration out of all components
@@ -24,25 +23,24 @@ type server struct {
 }
 
 // NewByConfig returns server instance with default config
-func NewByConfig() *server {
-	log := logger.InitializeLogger()
-	cfg := config.New(log)
-
-	//logic := processors.New(uc, tc, log)
-
-	//handle := handlers.New(logic, log)
-
+func NewByConfig(handlers i.Handlers, logger *zap.Logger, config *config.Config) *server {
 	return &server{
-		//handlers:   handle,
-		//middleware: mv,
-		logger: log,
-		config: cfg,
+		handlers: handlers,
+		logger:   logger,
+		config:   config,
+	}
+}
+
+func NewTestConfig(handlers i.Handlers, logger *zap.Logger) *server {
+	return &server{
+		handlers: handlers,
+		logger:   logger,
 	}
 }
 
 // Run runs the service and provides graceful shutdown
 func (s server) Run() {
-	serv := &http.Server{Addr: s.config.Address, Handler: s.router()}
+	serv := &http.Server{Addr: s.config.Address, Handler: s.Router()}
 
 	serverCtx, serverStopCtx := context.WithCancel(context.Background())
 
