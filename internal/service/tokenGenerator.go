@@ -2,6 +2,7 @@ package service
 
 import (
 	"crypto/rand"
+	"math"
 	"math/big"
 )
 
@@ -12,15 +13,23 @@ const (
 
 // TokenGenerator generates new token for shortened link
 func TokenGenerator() (string, error) {
-	ret := make([]byte, linkLength)
-	for i := 0; i < linkLength; i++ {
-		num, err := rand.Int(rand.Reader, big.NewInt(int64(len(literals))))
-		if err != nil {
-			return "", err
-		}
-
-		ret[i] = literals[num.Int64()]
+	rnd, err := rand.Int(rand.Reader, big.NewInt(int64(math.Pow(float64(len(literals)), 10))))
+	if err != nil {
+		return "", err
 	}
 
-	return string(ret), nil
+	num := rnd.Int64()
+
+	res := make([]byte, linkLength)
+
+	for i := 0; i < linkLength; i++ {
+		if num > 0 {
+			res[i] = literals[num%int64(len(literals))]
+			num /= int64(len(literals))
+		} else {
+			res[i] = literals[0]
+		}
+	}
+
+	return string(res), nil
 }
