@@ -12,7 +12,7 @@ func (s service) ShortenLink(link string) (string, error) {
 		return "", err
 	}
 
-	err = s.storage.AddNewLink(token, link)
+	token, err = s.storage.AddNewLink(token, link)
 	if err != nil {
 		return "", err
 	}

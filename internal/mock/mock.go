@@ -139,11 +139,12 @@ func (m *MockStorage) EXPECT() *MockStorageMockRecorder {
 }
 
 // AddNewLink mocks base method.
-func (m *MockStorage) AddNewLink(id, link string) error {
+func (m *MockStorage) AddNewLink(id, link string) (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddNewLink", id, link)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // AddNewLink indicates an expected call of AddNewLink.
