@@ -4,10 +4,8 @@ import (
 	"go.uber.org/zap"
 )
 
-var Logger *zap.Logger
-
-// InitializeLogger initializes new Logger instance
+// InitializeLogger initializes new Logger configured instance
 func InitializeLogger() *zap.Logger {
-	Logger, _ = zap.NewDevelopment()
-	return Logger
+	logger, _ := zap.NewDevelopment()
+	return logger
 }
