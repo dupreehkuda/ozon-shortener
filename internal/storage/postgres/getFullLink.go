@@ -9,6 +9,7 @@ import (
 	er "github.com/dupreehkuda/ozon-shortener/internal/customErrors"
 )
 
+// GetFullLink gets original link by shortened token
 func (s storage) GetFullLink(id string) (string, error) {
 	conn, err := s.pool.Acquire(context.Background())
 	if err != nil {

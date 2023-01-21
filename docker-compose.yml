@@ -7,10 +7,12 @@ services:
     container_name: service
     environment:
       - DATABASE_URI=postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
-      - RUN_ADDRESS=${ADDRESS}
+      - HTTP_ADDRESS=${HTTP_ADDRESS}
+      - GRPC_ADDRESS=${GRPC_ADDRESS}
     env_file: .env
     ports:
-      - '8080:8080'
+      - '8000:8000'
+      - '9000:9000'
     restart: on-failure
     volumes:
       - .:/app

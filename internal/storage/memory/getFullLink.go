@@ -2,6 +2,7 @@ package memory
 
 import er "github.com/dupreehkuda/ozon-shortener/internal/customErrors"
 
+// GetFullLink gets original link by shortened token
 func (s storage) GetFullLink(id string) (string, error) {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()

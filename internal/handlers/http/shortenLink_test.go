@@ -1,4 +1,4 @@
-package handlers
+package httpHandlers
 
 import (
 	"bytes"
@@ -56,14 +56,14 @@ func TestHandlers_ShortenLink(t *testing.T) {
 	logger, _ := zap.NewDevelopment()
 	handle := New(service, logger)
 
-	srv := server.NewByConfig(handle, logger, nil)
+	srv := server.NewByConfig(handle, nil, logger, nil)
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
 			tc.mock(service)
 			r := srv.Router()
 
-			req := httptest.NewRequest(http.MethodPost, "/", bytes.NewBufferString(tc.input))
+			req := httptest.NewRequest(http.MethodPost, "/api/shorten", bytes.NewBufferString(tc.input))
 			req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 
 			rec := httptest.NewRecorder()

@@ -1,4 +1,4 @@
-package handlers
+package httpHandlers
 
 import (
 	"fmt"
@@ -62,7 +62,7 @@ func TestHandlers_GetFullLink(t *testing.T) {
 	logger, _ := zap.NewDevelopment()
 	handle := New(service, logger)
 
-	srv := server.NewByConfig(handle, logger, nil)
+	srv := server.NewByConfig(handle, nil, logger, nil)
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {

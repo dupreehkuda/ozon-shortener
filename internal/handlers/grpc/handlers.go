@@ -1,4 +1,4 @@
-package httpHandlers
+package grpcHandlers
 
 import (
 	"go.uber.org/zap"

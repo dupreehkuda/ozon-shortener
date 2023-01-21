@@ -8,6 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// storage provides service's storing layer
 type storage struct {
 	pool   *pgxpool.Pool
 	logger *zap.Logger
@@ -20,7 +21,7 @@ CREATE TABLE IF NOT EXISTS links (
 );
 `
 
-// New creates a new instance of database layer and migrates it
+// New creates a new instance of database layer using Postgres
 func New(path string, logger *zap.Logger) *storage {
 	// Wait until database initialize in container
 	time.Sleep(time.Second * 2)

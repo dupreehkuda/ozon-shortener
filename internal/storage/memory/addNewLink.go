@@ -2,6 +2,7 @@ package memory
 
 import er "github.com/dupreehkuda/ozon-shortener/internal/customErrors"
 
+// AddNewLink checks if link is present and if not adds it to the storage
 func (s storage) AddNewLink(id, link string) (string, error) {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()

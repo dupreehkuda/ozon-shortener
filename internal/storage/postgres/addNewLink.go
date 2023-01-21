@@ -7,6 +7,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// AddNewLink checks if link is present and if not adds it to the storage
 func (s storage) AddNewLink(id, link string) (string, error) {
 	conn, err := s.pool.Acquire(context.Background())
 	if err != nil {

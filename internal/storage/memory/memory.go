@@ -6,6 +6,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// storage provides service's storing layer
 type storage struct {
 	mtx         sync.Mutex
 	logger      *zap.Logger
@@ -13,6 +14,7 @@ type storage struct {
 	fullToShort map[string]string
 }
 
+// New creates a new instance of database layer using memory
 func New(logger *zap.Logger) *storage {
 	logger.Info("Launched with memory")
 
