@@ -24,7 +24,7 @@ func New(logger *zap.Logger) *Config {
 
 	flag.StringVar(&config.Address, "a", config.Address, "Launch address")
 	flag.StringVar(&config.DatabasePath, "d", config.DatabasePath, "Path to database")
-	flag.Bool("m", config.UseMemory, "Memory usage")
+	flag.BoolVar(&config.UseMemory, "m", config.UseMemory, "Memory usage")
 	flag.Parse()
 
 	return &config

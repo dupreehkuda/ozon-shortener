@@ -14,6 +14,8 @@ type storage struct {
 }
 
 func New(logger *zap.Logger) *storage {
+	logger.Info("Launched with memory")
+
 	return &storage{
 		mtx:         sync.Mutex{},
 		logger:      logger,

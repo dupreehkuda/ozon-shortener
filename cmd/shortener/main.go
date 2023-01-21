@@ -19,7 +19,9 @@ func main() {
 	if cfg.UseMemory {
 		store = memory.New(log)
 	} else {
-		store = postgres.New(cfg.DatabasePath, log)
+		db := postgres.New(cfg.DatabasePath, log)
+		db.CreateSchema()
+		store = db
 	}
 
 	serv := service.New(store, log)

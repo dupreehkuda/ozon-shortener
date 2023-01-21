@@ -6,13 +6,10 @@ compose:
 compose-down:
 	docker-compose down --remove-orphans
 
-.PHONY: rebuild
-rebuild:
-	docker-compose down --remove-orphans
-	docker-compose build
+.PHONY: build_memory
+build_memory:
+	docker build -t ozon .
 
-.PHONY: fast
-fast:
-	docker-compose build
-	docker-compose down --remove-orphans
-	docker-compose up
+.PHONY: run_memory
+run_memory:
+	docker run -p 8080:8080 ozon -m

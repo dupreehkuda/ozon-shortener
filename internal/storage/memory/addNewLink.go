@@ -1,5 +1,21 @@
 package memory
 
+import er "github.com/dupreehkuda/ozon-shortener/internal/customErrors"
+
 func (s storage) AddNewLink(id, link string) (string, error) {
-	return "", nil
+	s.mtx.Lock()
+	defer s.mtx.Unlock()
+
+	if _, ok := s.shortToFull[id]; ok {
+		return "", er.ErrExistingToken
+	}
+
+	if token, ok := s.fullToShort[link]; ok {
+		return token, nil
+	}
+
+	s.shortToFull[id] = link
+	s.fullToShort[link] = id
+
+	return id, nil
 }

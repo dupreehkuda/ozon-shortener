@@ -15,9 +15,8 @@ type storage struct {
 
 var schema = `
 CREATE TABLE IF NOT EXISTS links (
-	id       VARCHAR(10)   NOT NULL,
-    base_url VARCHAR(1024) NOT NULL,
-    short    VARCHAR(10)   NOT NULL UNIQUE
+	id       VARCHAR(10)   NOT NULL UNIQUE ,
+    original VARCHAR(1024) NOT NULL
 );
 `
 
@@ -46,8 +45,8 @@ func New(path string, logger *zap.Logger) *storage {
 func (s storage) CreateSchema() {
 	_, err := s.pool.Exec(context.Background(), schema)
 	if err != nil {
-		s.logger.Error("Error occurred while executing schema", zap.Error(err))
+		s.logger.Fatal("Error occurred while executing schema", zap.Error(err))
 	}
 
-	s.logger.Info("Launched with pgx. Database created.")
+	s.logger.Info("Launched with Postgres")
 }
