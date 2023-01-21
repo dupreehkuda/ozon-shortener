@@ -7,7 +7,7 @@ compose-down:
 	docker-compose down --remove-orphans
 
 .PHONY: build
-rebuild:
+build:
 	docker-compose down --remove-orphans
 	docker-compose build
 

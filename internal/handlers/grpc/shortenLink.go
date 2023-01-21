@@ -19,7 +19,7 @@ func (h handlers) ShortenLink(ctx context.Context, req *rpcapi.ShortenRequest) (
 		return nil, status.Error(codes.Unavailable, "Validation error")
 	}
 
-	token, err := h.service.ShortenLink(req.Url)
+	token, err := h.service.ShortenLink(ctx, req.Url)
 	if err != nil {
 		if err == er.ErrExistingToken {
 			h.logger.Error("Collision alert!", zap.Error(err))

@@ -1,9 +1,13 @@
 package memory
 
-import er "github.com/dupreehkuda/ozon-shortener/internal/customErrors"
+import (
+	"context"
+
+	er "github.com/dupreehkuda/ozon-shortener/internal/customErrors"
+)
 
 // GetFullLink gets original link by shortened token
-func (s storage) GetFullLink(id string) (string, error) {
+func (s storage) GetFullLink(_ context.Context, id string) (string, error) {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
 

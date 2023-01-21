@@ -10,8 +10,8 @@ import (
 )
 
 // GetFullLink gets original link by shortened token
-func (s storage) GetFullLink(id string) (string, error) {
-	conn, err := s.pool.Acquire(context.Background())
+func (s storage) GetFullLink(ctx context.Context, id string) (string, error) {
+	conn, err := s.pool.Acquire(ctx)
 	if err != nil {
 		s.logger.Error("Error while acquiring connection", zap.Error(err))
 		return "", err
@@ -20,7 +20,7 @@ func (s storage) GetFullLink(id string) (string, error) {
 
 	var link string
 
-	err = conn.QueryRow(context.Background(), "SELECT original FROM links WHERE id = $1;", id).Scan(&link)
+	err = conn.QueryRow(ctx, "SELECT original FROM links WHERE id = $1;", id).Scan(&link)
 	if err != nil {
 		if err == pgx.ErrNoRows {
 			return "", er.ErrNoSuchURL

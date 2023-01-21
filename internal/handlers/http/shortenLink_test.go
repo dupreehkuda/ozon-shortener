@@ -2,6 +2,7 @@ package httpHandlers
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -26,7 +27,7 @@ func TestHandlers_ShortenLink(t *testing.T) {
 		"Success": {
 			input: `{"url":"https://youtube.com"}`,
 			mock: func(repos *mock.MockService) {
-				repos.EXPECT().ShortenLink(gomock.Any()).Return("test", nil)
+				repos.EXPECT().ShortenLink(context.Background(), gomock.Any()).Return("test", nil)
 			},
 			expectedCode: http.StatusOK,
 		},
@@ -43,7 +44,7 @@ func TestHandlers_ShortenLink(t *testing.T) {
 		"Internal Error": {
 			input: `{"url":"https://youtube.com"}`,
 			mock: func(repos *mock.MockService) {
-				repos.EXPECT().ShortenLink(gomock.Any()).Return("", fmt.Errorf("error occurred"))
+				repos.EXPECT().ShortenLink(context.Background(), gomock.Any()).Return("", fmt.Errorf("error occurred"))
 			},
 			expectedCode: http.StatusInternalServerError,
 		},

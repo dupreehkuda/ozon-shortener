@@ -19,7 +19,7 @@ func (h handlers) GetFullLink(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, nil)
 	}
 
-	link, err := h.service.GetFullLink(token)
+	link, err := h.service.GetFullLink(c.Request().Context(), token)
 	if err != nil {
 		if err == er.ErrNoSuchURL {
 			return c.JSON(http.StatusNoContent, nil)

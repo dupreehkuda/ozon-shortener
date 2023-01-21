@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -22,7 +23,7 @@ func TestService_ShortenLink(t *testing.T) {
 		"Success": {
 			input: "https://youtube.com",
 			mock: func(storage *mock.MockStorage, url string) {
-				storage.EXPECT().AddNewLink(gomock.Any(), url).Return("qWeRtY_123", nil)
+				storage.EXPECT().AddNewLink(context.Background(), gomock.Any(), url).Return("qWeRtY_123", nil)
 			},
 			expectedOutput: "qWeRtY_123",
 			expectedError:  nil,
@@ -30,7 +31,7 @@ func TestService_ShortenLink(t *testing.T) {
 		"Internal Error": {
 			input: "https://youtube.com",
 			mock: func(storage *mock.MockStorage, url string) {
-				storage.EXPECT().AddNewLink(gomock.Any(), url).Return("", fmt.Errorf("error occurred"))
+				storage.EXPECT().AddNewLink(context.Background(), gomock.Any(), url).Return("", fmt.Errorf("error occurred"))
 			},
 			expectedOutput: "",
 			expectedError:  fmt.Errorf("error occurred"),
@@ -48,7 +49,7 @@ func TestService_ShortenLink(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			tc.mock(storage, tc.input)
 
-			ans, err := serv.ShortenLink(tc.input)
+			ans, err := serv.ShortenLink(context.Background(), tc.input)
 			if tc.expectedError != nil {
 				assert.NotNil(t, err)
 			} else {

@@ -1,6 +1,8 @@
 package interfaces
 
 import (
+	"context"
+
 	"github.com/labstack/echo/v4"
 
 	rpcapi "github.com/dupreehkuda/ozon-shortener/pkg/api"
@@ -21,12 +23,12 @@ type Handlers interface {
 
 // Service is interface for business-logic
 type Service interface {
-	GetFullLink(id string) (string, error)
-	ShortenLink(link string) (string, error)
+	GetFullLink(ctx context.Context, id string) (string, error)
+	ShortenLink(ctx context.Context, link string) (string, error)
 }
 
 // Storage is interface for storage
 type Storage interface {
-	AddNewLink(id, link string) (string, error)
-	GetFullLink(id string) (string, error)
+	AddNewLink(ctx context.Context, id, link string) (string, error)
+	GetFullLink(ctx context.Context, id string) (string, error)
 }

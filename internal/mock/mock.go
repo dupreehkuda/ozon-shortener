@@ -5,11 +5,66 @@
 package mock
 
 import (
+	context "context"
 	reflect "reflect"
 
+	__ "github.com/dupreehkuda/ozon-shortener/pkg/api"
 	gomock "github.com/golang/mock/gomock"
 	echo "github.com/labstack/echo/v4"
 )
+
+// MockRPCHandlers is a mock of RPCHandlers interface.
+type MockRPCHandlers struct {
+	ctrl     *gomock.Controller
+	recorder *MockRPCHandlersMockRecorder
+}
+
+// MockRPCHandlersMockRecorder is the mock recorder for MockRPCHandlers.
+type MockRPCHandlersMockRecorder struct {
+	mock *MockRPCHandlers
+}
+
+// NewMockRPCHandlers creates a new mock instance.
+func NewMockRPCHandlers(ctrl *gomock.Controller) *MockRPCHandlers {
+	mock := &MockRPCHandlers{ctrl: ctrl}
+	mock.recorder = &MockRPCHandlersMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockRPCHandlers) EXPECT() *MockRPCHandlersMockRecorder {
+	return m.recorder
+}
+
+// GetFullLink mocks base method.
+func (m *MockRPCHandlers) GetFullLink(arg0 context.Context, arg1 *__.GetFullRequest) (*__.GetFullResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetFullLink", arg0, arg1)
+	ret0, _ := ret[0].(*__.GetFullResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetFullLink indicates an expected call of GetFullLink.
+func (mr *MockRPCHandlersMockRecorder) GetFullLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFullLink", reflect.TypeOf((*MockRPCHandlers)(nil).GetFullLink), arg0, arg1)
+}
+
+// ShortenLink mocks base method.
+func (m *MockRPCHandlers) ShortenLink(arg0 context.Context, arg1 *__.ShortenRequest) (*__.ShortenResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ShortenLink", arg0, arg1)
+	ret0, _ := ret[0].(*__.ShortenResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ShortenLink indicates an expected call of ShortenLink.
+func (mr *MockRPCHandlersMockRecorder) ShortenLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ShortenLink", reflect.TypeOf((*MockRPCHandlers)(nil).ShortenLink), arg0, arg1)
+}
 
 // MockHandlers is a mock of Handlers interface.
 type MockHandlers struct {
@@ -86,33 +141,33 @@ func (m *MockService) EXPECT() *MockServiceMockRecorder {
 }
 
 // GetFullLink mocks base method.
-func (m *MockService) GetFullLink(id string) (string, error) {
+func (m *MockService) GetFullLink(ctx context.Context, id string) (string, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetFullLink", id)
+	ret := m.ctrl.Call(m, "GetFullLink", ctx, id)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetFullLink indicates an expected call of GetFullLink.
-func (mr *MockServiceMockRecorder) GetFullLink(id interface{}) *gomock.Call {
+func (mr *MockServiceMockRecorder) GetFullLink(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFullLink", reflect.TypeOf((*MockService)(nil).GetFullLink), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFullLink", reflect.TypeOf((*MockService)(nil).GetFullLink), ctx, id)
 }
 
 // ShortenLink mocks base method.
-func (m *MockService) ShortenLink(link string) (string, error) {
+func (m *MockService) ShortenLink(ctx context.Context, link string) (string, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ShortenLink", link)
+	ret := m.ctrl.Call(m, "ShortenLink", ctx, link)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // ShortenLink indicates an expected call of ShortenLink.
-func (mr *MockServiceMockRecorder) ShortenLink(link interface{}) *gomock.Call {
+func (mr *MockServiceMockRecorder) ShortenLink(ctx, link interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ShortenLink", reflect.TypeOf((*MockService)(nil).ShortenLink), link)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ShortenLink", reflect.TypeOf((*MockService)(nil).ShortenLink), ctx, link)
 }
 
 // MockStorage is a mock of Storage interface.
@@ -139,31 +194,31 @@ func (m *MockStorage) EXPECT() *MockStorageMockRecorder {
 }
 
 // AddNewLink mocks base method.
-func (m *MockStorage) AddNewLink(id, link string) (string, error) {
+func (m *MockStorage) AddNewLink(ctx context.Context, id, link string) (string, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddNewLink", id, link)
+	ret := m.ctrl.Call(m, "AddNewLink", ctx, id, link)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // AddNewLink indicates an expected call of AddNewLink.
-func (mr *MockStorageMockRecorder) AddNewLink(id, link interface{}) *gomock.Call {
+func (mr *MockStorageMockRecorder) AddNewLink(ctx, id, link interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddNewLink", reflect.TypeOf((*MockStorage)(nil).AddNewLink), id, link)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddNewLink", reflect.TypeOf((*MockStorage)(nil).AddNewLink), ctx, id, link)
 }
 
 // GetFullLink mocks base method.
-func (m *MockStorage) GetFullLink(id string) (string, error) {
+func (m *MockStorage) GetFullLink(ctx context.Context, id string) (string, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetFullLink", id)
+	ret := m.ctrl.Call(m, "GetFullLink", ctx, id)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetFullLink indicates an expected call of GetFullLink.
-func (mr *MockStorageMockRecorder) GetFullLink(id interface{}) *gomock.Call {
+func (mr *MockStorageMockRecorder) GetFullLink(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFullLink", reflect.TypeOf((*MockStorage)(nil).GetFullLink), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFullLink", reflect.TypeOf((*MockStorage)(nil).GetFullLink), ctx, id)
 }

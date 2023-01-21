@@ -26,7 +26,7 @@ func (h handlers) ShortenLink(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, nil)
 	}
 
-	token, err := h.service.ShortenLink(req.URL)
+	token, err := h.service.ShortenLink(c.Request().Context(), req.URL)
 	if err != nil {
 		if err == er.ErrExistingToken {
 			h.logger.Error("Collision alert!", zap.Error(err))

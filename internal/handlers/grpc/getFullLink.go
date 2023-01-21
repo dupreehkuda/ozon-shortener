@@ -19,7 +19,7 @@ func (h handlers) GetFullLink(ctx context.Context, req *rpcapi.GetFullRequest) (
 		return nil, status.Error(codes.Unavailable, "Validation error")
 	}
 
-	link, err := h.service.GetFullLink(req.Token)
+	link, err := h.service.GetFullLink(ctx, req.Token)
 	if err != nil {
 		if err == er.ErrNoSuchURL {
 			return nil, status.Error(codes.NotFound, "URL not found")

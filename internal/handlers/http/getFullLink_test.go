@@ -1,6 +1,7 @@
 package httpHandlers
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -25,14 +26,14 @@ func TestHandlers_GetFullLink(t *testing.T) {
 		"Success": {
 			input: "qWeRtY_123",
 			mock: func(repos *mock.MockService) {
-				repos.EXPECT().GetFullLink(gomock.Any()).Return("https://youtube.com", nil)
+				repos.EXPECT().GetFullLink(context.Background(), gomock.Any()).Return("https://youtube.com", nil)
 			},
 			expectedCode: http.StatusMovedPermanently,
 		},
 		"Not found in storage": {
 			input: "qWeRtY_123",
 			mock: func(repos *mock.MockService) {
-				repos.EXPECT().GetFullLink(gomock.Any()).Return("", er.ErrNoSuchURL)
+				repos.EXPECT().GetFullLink(context.Background(), gomock.Any()).Return("", er.ErrNoSuchURL)
 			},
 			expectedCode: http.StatusNoContent,
 		},
@@ -49,7 +50,7 @@ func TestHandlers_GetFullLink(t *testing.T) {
 		"Internal Error": {
 			input: "qWeRtY_123",
 			mock: func(repos *mock.MockService) {
-				repos.EXPECT().GetFullLink(gomock.Any()).Return("", fmt.Errorf("error occurred"))
+				repos.EXPECT().GetFullLink(context.Background(), gomock.Any()).Return("", fmt.Errorf("error occurred"))
 			},
 			expectedCode: http.StatusInternalServerError,
 		},

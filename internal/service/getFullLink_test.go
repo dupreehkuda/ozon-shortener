@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -23,7 +24,7 @@ func TestService_GetFullLink(t *testing.T) {
 		"Success": {
 			input: "qWeRtY_123",
 			mock: func(storage *mock.MockStorage, token string) {
-				storage.EXPECT().GetFullLink(token).Return("https://youtube.com", nil)
+				storage.EXPECT().GetFullLink(context.Background(), token).Return("https://youtube.com", nil)
 			},
 			expectedOutput: "https://youtube.com",
 			expectedError:  nil,
@@ -31,7 +32,7 @@ func TestService_GetFullLink(t *testing.T) {
 		"Not found in storage": {
 			input: "qWeRtY_123",
 			mock: func(storage *mock.MockStorage, token string) {
-				storage.EXPECT().GetFullLink(token).Return("", er.ErrNoSuchURL)
+				storage.EXPECT().GetFullLink(context.Background(), token).Return("", er.ErrNoSuchURL)
 			},
 			expectedOutput: "",
 			expectedError:  er.ErrNoSuchURL,
@@ -39,7 +40,7 @@ func TestService_GetFullLink(t *testing.T) {
 		"Internal Error": {
 			input: "qWeRtY_123",
 			mock: func(storage *mock.MockStorage, token string) {
-				storage.EXPECT().GetFullLink(token).Return("", fmt.Errorf("error occurred"))
+				storage.EXPECT().GetFullLink(context.Background(), token).Return("", fmt.Errorf("error occurred"))
 			},
 			expectedOutput: "",
 			expectedError:  fmt.Errorf("error occurred"),
@@ -57,7 +58,7 @@ func TestService_GetFullLink(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			tc.mock(storage, tc.input)
 
-			ans, err := serv.GetFullLink(tc.input)
+			ans, err := serv.GetFullLink(context.Background(), tc.input)
 			if tc.expectedError != nil {
 				assert.NotNil(t, err)
 			} else {
